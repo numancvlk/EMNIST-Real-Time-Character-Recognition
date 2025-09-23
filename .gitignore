@@ -1,0 +1,4 @@
+datas/
+venv/
+*.pth
+__pycache__/
