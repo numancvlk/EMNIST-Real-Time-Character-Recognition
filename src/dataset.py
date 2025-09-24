@@ -54,7 +54,7 @@ plt.show()
 
 print(image.shape)
 
-BATCH_SIZE = 32
+BATCH_SIZE = 128
 
 trainDataLoader = DataLoader(
     dataset=trainData,

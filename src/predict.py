@@ -1,15 +1,17 @@
 #SCRIPTS
 from model import device, EMNISTModel
-from dataset import testData
+from dataset import testData,trainData
 
 #LIBRARIES
 import torch
 import random
 import matplotlib.pyplot as plt
 
-newModel = EMNISTModel()
+newModel = EMNISTModel(inputShape=1,
+                       hiddenUnit=128,
+                       outputShape=len(testData.classes))
 
-newModel.load_state_dict(torch.load("myEMNISTMODEL.pth"))
+newModel.load_state_dict(torch.load("src\myEMNISTMODEL.pth"))
 
 def makePredictions(model:torch.nn.Module,
                     data:list,
@@ -74,3 +76,5 @@ for i, sample in enumerate(testSamples):
 plt.tight_layout()
 plt.show()
 
+for idx, ch in enumerate(trainData.classes):
+    print(idx, ch)
