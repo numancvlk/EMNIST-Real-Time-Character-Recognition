@@ -35,7 +35,7 @@ def trainStep(model: torch.nn.Module,
         loss = lossFn(trainPred,yTrain)
         trainLoss += loss
 
-        acc = accFn(yTrue = yTrain, yPred = trainPred)
+        acc = accFn(yTrue = yTrain, yPred = trainPred.argmax(dim=1))
         trainAccuracy += acc
 
         #3 - ZERO GRAD
@@ -75,9 +75,9 @@ def testStep(model: torch.nn.Module,
 
             #2 - LOSS / ACC
             loss = lossFn(testPred,yTest)
-            testLoss += loss
+            testLoss += loss.item()
 
-            acc = accFn(yTrue = yTest, yPred = testPred)
+            acc = accFn(yTrue = yTest, yPred = testPred.argmax(dim=1))
             testAccuracy += acc
 
     testLoss /= len(dataLoader)
@@ -103,9 +103,9 @@ def modelSummary(model: torch.nn.Module,
 
             #2 - LOSS / ACC
             loss = lossFn(summaryPred,yTest)
-            summaryLoss += loss
+            summaryLoss += loss.item()
 
-            acc = accFn(yTrue = yTest, yPred = summaryPred)
+            acc = accFn(yTrue = yTest, yPred = summaryPred.argmax(dim=1))
             summaryAccuracy += acc
 
     summaryLoss /= len(dataLoader)

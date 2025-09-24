@@ -5,7 +5,7 @@ from dataset import trainData
 import torch
 from torch import nn
 
-class EMINSTModel(nn.Module):
+class EMNISTModel(nn.Module):
     def __init__(self,
                  inputShape:int,
                  hiddenUnit:int,
@@ -46,8 +46,8 @@ class EMINSTModel(nn.Module):
 
         self.classifier = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(in_features=hiddenUnit,
-                      out_features=outputShape * 7 * 7)
+            nn.Linear(in_features=hiddenUnit* 7 * 7,
+                      out_features=outputShape)
         )
 
     def forward(self,x):
@@ -55,9 +55,5 @@ class EMINSTModel(nn.Module):
         x = self.convStack2(x)
         x = self.classifier(x)
         return x
-
+    
 device = "cuda" if torch.cuda.is_available() else "cpu"
-myModel = EMINSTModel(inputShape=1,
-                      hiddenUnit=32,
-                      outputShape=len(trainData)).to(device)
-print(myModel)
